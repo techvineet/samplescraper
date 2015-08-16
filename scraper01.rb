@@ -9,6 +9,7 @@ require 'open-uri'
 require 'net/http'
 require 'watir-webdriver'
 require 'headless'
+require 'csv'
 
 urls = ['http://www.bodybuilding.com/store/top50.htm']
 
@@ -58,7 +59,7 @@ end
 puts product_ratings.inspect
 
 products = Array.new
-product_ratings = [["http://www.bodybuilding.com/store/opt/whey.html", "Optimum Nutrition Gold Standard 100% Whey", "9.2"]]
+product_ratings = [["http://www.bodybuilding.com/store/opt/whey.html", "Optimum Nutrition Gold Standard 100% Whey", "9.2"], ["http://www.bodybuilding.com/store/jym/pre-jym.html", "JYM Pre JYM", "9.3"]]
 
 product_ratings.each do |pr|
  	tries ||= 3
@@ -95,4 +96,16 @@ product_ratings.each do |pr|
 	end
 end
 
-puts products.inspect
+puts 'Scraping done...' 
+puts 'Saving to CSV file now....'
+
+CSV.open("products.csv", "wb") do |csv|
+  csv << ['Date', 'URL', 'Title', 'Rating', 'Reviews', 'Members Taking', 'Facebook Recommendations']
+  date = Time.now.strftime("%m/%d/%Y")
+
+  products.each do |product|
+  	csv << [date, product[0], product[1], product[2], product[3], product[4], product[5]]
+  end
+end
+
+puts 'DONE'
