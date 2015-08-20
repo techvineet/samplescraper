@@ -61,7 +61,7 @@ urls.each do |url|
 			rating_node = product_node.css("div.ratingSection a span.value")
 			rating = rating_node.text
 
-			product_ratings << [title_url[/([^;]+)/], title_text, rating]
+			product_ratings << [title_text, title_url[/([^;]+)/], rating]
 		end		
 		
 	rescue OpenURI::HTTPError => error
@@ -117,12 +117,12 @@ puts 'Scraping done...'
 puts 'Saving to CSV file ....'
 
 CSV.open("products_top_10.csv", "wb") do |csv|
-  csv << ['Date', 'URL', 'Title', 'Rating', 'Reviews', 'Members Taking', 'Facebook Recommendations']
+  csv << ['Date', 'Category', 'Title', 'URL', 'Rank', 'Rating', 'ReviewCount', 'MemberCount', 'FBrecommend']
   date = Time.now.strftime("%m/%d/%Y")
 
-  products.each do |product|
-  	csv << [date, product[0], product[1], product[2], product[3], product[4], product[5]]
+  products.each_with_index do |product|
+  	csv << [date, category[i], product[0], product[1], (i+1), product[2], product[3], product[4], product[5]]
   end
 end
 
-puts 'DONE'									
+puts 'DONE'

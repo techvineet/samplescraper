@@ -59,7 +59,7 @@ end
 puts product_ratings.inspect
 
 products = Array.new
-product_ratings = [["http://www.bodybuilding.com/store/opt/whey.html", "Optimum Nutrition Gold Standard 100% Whey", "9.2"], ["http://www.bodybuilding.com/store/jym/pre-jym.html", "JYM Pre JYM", "9.3"]]
+#product_ratings = [["http://www.bodybuilding.com/store/opt/whey.html", "Optimum Nutrition Gold Standard 100% Whey", "9.2"], ["http://www.bodybuilding.com/store/jym/pre-jym.html", "JYM Pre JYM", "9.3"]]
 
 product_ratings.each do |pr|
  	tries ||= 3
